@@ -7,14 +7,20 @@ async function createPageHandler(req, res) {
 
   const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
   
+  /*const response = await sql`
+  INSERT INTO table1 (handle)
+  VALUES (${rbody.handle});
+  `;*/
+
   const response = await sql`
   DELETE FROM table1
   WHERE handle=${rbody.handle};
   `;
+
   console.log(response);
   sql.end();
 
-  return res.status(200).json({ rbody })
+  return res.status(200).json(rbody.handle)
 }
 
 
