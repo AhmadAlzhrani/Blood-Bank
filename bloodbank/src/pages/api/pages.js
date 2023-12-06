@@ -1,25 +1,20 @@
 import postgres from 'postgres';
-var SqlString = require('sqlstring');
 
 async function createPageHandler(req, res) {
 
-  const body = req.body;
-  console.log('body',body);
+  const rbody = req.body;
+  console.log('body',rbody);
 
   const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
   
-  const response = SqlString.format( 
-    `INSERT INTO table1 (body)
-    VALUES (?)` 
-    , [body] );
-
-
+  const response = await sql`
+  DELETE FROM table1
+  WHERE handle=${rbody.handle};
+  `;
   console.log(response);
-  await sql.query(response);
-  
   sql.end();
 
-  return res.status(200).json({ body })
+  return res.status(200).json({ rbody })
 }
 
 
