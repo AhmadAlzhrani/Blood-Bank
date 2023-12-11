@@ -7,7 +7,6 @@ export default function Home() {
 
   const mutation = useMutation({
     mutationFn: (handle) => {
-      console.log('handle1111: ',handle);
       return fetch('/api/pages', {
         method: 'POST',
         body: JSON.stringify({
@@ -16,10 +15,7 @@ export default function Home() {
       })
     },
     onSuccess: async (res) => {
-      //const body = res.body;
       const handle = res;
-      console.log('handle2222: ',handle);
-      //router.push(`/${handle}`);
     },
   });
 
