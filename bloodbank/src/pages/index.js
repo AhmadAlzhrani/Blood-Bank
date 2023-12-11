@@ -40,7 +40,7 @@ export default function Home() {
             <input type="text" placeholder="@aloha" required/>
           </div>
           <div>
-            <button type="submit">create page</button>
+            <button className='primary-button' type="submit">create page</button>
           </div>
         </form>
       </div> }

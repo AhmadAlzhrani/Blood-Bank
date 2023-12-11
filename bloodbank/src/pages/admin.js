@@ -133,52 +133,57 @@ export default function admin() {
 
 return (
     <>
-        <div className="grid">
-            <h1>Admin</h1>
-            <button onClick={showHideAdd}>add</button>
-            <button onClick={showHideRemove}>remove</button>
-            <button onClick={showHideUpdate}>update</button>
-            <button onClick={showHideSearch}>search history</button>
-            <button onClick={showHideBloodReq}>blood req</button>
-            <button onClick={showHideBloodCollection}>blood collection in given time</button>
+        <div className="">
+            <h1 className=" text-center">Admin</h1>
+            <button className="primary-button" onClick={showHideAdd}>add</button>
+            <button className="primary-button" onClick={showHideRemove}>remove</button>
+            <button className="primary-button" onClick={showHideUpdate}>update</button>
+            <button className="primary-button" onClick={showHideSearch}>search history</button>
+            <button className="primary-button" onClick={showHideBloodReq}>blood req</button>
+            <button className="primary-button" onClick={showHideBloodCollection}>blood collection in given time</button>
         </div>
-        <div>
+        <div className="">
             {
             add &&
-            <div>
+            <div className="">
                 <h1>add</h1>                   
                 {addMutation.isLoading && <p>loading...</p>}
                 {! addMutation.isLoading && <div>
                     <form onSubmit={handleAdd}>
-                    <div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="id">ID</label>
                         <input type="text" placeholder="1234567890" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="fname">First Name</label>
                         <input type="text" placeholder="ali" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="lname">Last Name</label>
                         <input type="text" placeholder="alzhrani" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="bloodType">Blood Type</label>
                         <input type="text" placeholder="O+" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="bd">Birth Day</label>
                         <input type="text" placeholder="10/11/1999" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="email">Email</label>
                         <input type="text" placeholder="alo@alo.alo" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="username">Username</label>
                         <input type="text" placeholder="alialzhrani" required/>
-
-                        <div className="radio">
-                            <label><input type="radio" name="donor" value="true" />Donor</label>
-                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
-                        </div>
                     </div>
-                    <div>
-                        <button type="submit">Add User</button>
+                        <div className="radio px-4 py-2 space-x-8">
+                            <label><input type="radio" name=" donor" value="true" />Donor</label>
+                            <label><input type="radio" name=" recipient" value="false"  />Recipient</label>
+                        </div>
+                    <div className=" px-4 py-2 space-x-8 ">
+                        <button className="primary-button" type="submit">Add User</button>
                     </div>
                     </form>
                 </div> }
@@ -193,16 +198,16 @@ return (
                 {removeMutation.isLoading && <p>loading...</p>}
                 {! removeMutation.isLoading && <div>
                     <form onSubmit={handleRemove}>
-                    <div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="id">ID</label>
                         <input type="text" placeholder="1234567890" required/>
-                        <div className="radio">
-                            <label><input type="radio" name="donor" value="true" />Donor</label>
-                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
-                        </div>
+                    </div>
+                    <div className="radio px-4 py-2 space-x-8">
+                        <label><input type="radio" name=" donor" value="true" />Donor</label>
+                        <label><input type="radio" name=" recipient" value="false"  />Recipient</label>
                     </div>
                     <div>
-                        <button type="submit">Remove User</button>
+                        <button className="primary-button" type="submit">Remove User</button>
                     </div>
                     </form>
                 </div> }
@@ -217,35 +222,40 @@ return (
                 {updateMutation.isLoading && <p>loading...</p>}
                 {! updateMutation.isLoading && <div>
                     <form onSubmit={handleUpdate}>
-                    <div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="id">ID</label>
                         <input type="text" placeholder="1234567890" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="fname">First Name</label>
                         <input type="text" placeholder="ali" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="lname">Last Name</label>
                         <input type="text" placeholder="alzhrani" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="bloodType">Blood Type</label>
                         <input type="text" placeholder="O+" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="bd">Birth Day</label>
                         <input type="text" placeholder="10/11/1999" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="email">Email</label>
                         <input type="text" placeholder="alo@alo.alo" required/>
-
+                    </div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="username">Username</label>
                         <input type="text" placeholder="alialzhrani" required/>
-
-                        <div className="radio">
-                            <label><input type="radio" name="donor" value="true" />Donor</label>
-                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
-                        </div>
                     </div>
-                    <div>
-                        <button type="submit">Update User</button>
+                        <div className="radio px-4 py-2 space-x-8">
+                            <label><input type="radio" name=" donor" value="true" />Donor</label>
+                            <label><input type="radio" name=" recipient" value="false"  />Recipient</label>
+                        </div>
+                    <div className=" px-4 py-2 space-x-8 ">
+                        <button className="primary-button" type="submit">Add User</button>
                     </div>
                     </form>
                 </div> }
@@ -260,16 +270,16 @@ return (
                 {searchMutation.isLoading && <p>loading...</p>}
                 {! searchMutation.isLoading && <div>
                     <form onSubmit={handleSearch}>
-                    <div>
+                    <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="id">ID</label>
                         <input type="text" placeholder="1234567890" required/>
-                        <div className="radio">
-                            <label><input type="radio" name="donor" value="true" />Donor</label>
-                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
-                        </div>
+                    </div>
+                    <div className="radio px-4 py-2 space-x-8">
+                        <label><input type="radio" name=" donor" value="true" />Donor</label>
+                        <label><input type="radio" name=" recipient" value="false"  />Recipient</label>
                     </div>
                     <div>
-                        <button type="submit">Search User</button>
+                        <button className="primary-button" type="submit">Search User</button>
                     </div>
                     </form>
                 </div> }
@@ -291,7 +301,7 @@ return (
             bloodCollection &&
             <div>
                 <h1>blood collection</h1>                   
-                <button onClick={handleClick}> 
+                <button className="primary-button" onClick={handleClick}> 
                     {buttonText} 
                 </button>
             </div>
