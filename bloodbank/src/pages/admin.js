@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query"
 import BloodRequests from "./requests.js";
 
@@ -106,6 +106,29 @@ export default function admin() {
         const handle = event.target.elements[0].value;
         if(!handle) return;
         updateMutation.mutate(handle);
+    }
+
+    // mutation for searching user
+    const searchMutation = useMutation({
+        mutationFn: (id) => {
+          return fetch('/api/pages', {
+            method: 'GET',
+            body: JSON.stringify({
+                ID: id,
+            }),
+          })
+        },
+        onSuccess: async (res) => {
+          const handle = res;
+        },
+      });
+    function handleSearch(event) {
+        event.preventDefault();
+        
+        console.log(event.target.elements);
+        const handle = event.target.elements[0].value;
+        if(!handle) return;
+        searchMutation.mutate(handle);
     }
 
 return (
@@ -234,9 +257,9 @@ return (
             search &&
             <div>
                 <h1>search</h1>
-                {removeMutation.isLoading && <p>loading...</p>}
-                {! removeMutation.isLoading && <div>
-                    <form onSubmit={handleRemove}>
+                {searchMutation.isLoading && <p>loading...</p>}
+                {! searchMutation.isLoading && <div>
+                    <form onSubmit={handleSearch}>
                     <div>
                         <label htmlFor="id">ID</label>
                         <input type="text" placeholder="1234567890" required/>
@@ -246,7 +269,7 @@ return (
                         </div>
                     </div>
                     <div>
-                        <button type="submit">Remove User</button>
+                        <button type="submit">Search User</button>
                     </div>
                     </form>
                 </div> }
