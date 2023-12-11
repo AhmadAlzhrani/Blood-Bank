@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useMutation } from "react-query"
+import BloodRequests from "./requests.js";
 
 export default function admin() {
 
@@ -16,6 +18,95 @@ export default function admin() {
     const showHideBloodReq = () => setBloodReq(!bloodReq);
     const showHideBloodCollection = () => setBloodCollection(!bloodCollection);
 
+    const [buttonText, setButtonText] = useState('Initiate'); 
+  
+    const handleClick = () => { 
+        setButtonText(buttonText === 'Initiate' ? 'Stop' : 'Initiate'); 
+    }; 
+
+    // mutation for adding user
+    const addMutation = useMutation({
+        mutationFn: (id, fname, lname, bloodType, email, bd, t) => {
+          return fetch('/api/pages', {
+            method: 'POST',
+            body: JSON.stringify({
+                donor: t,
+                ID: id,
+                Fname: fname,
+                Lname: lname,
+                BloodType: bloodType,
+                Email: email,
+                BD: bd, 
+            }),
+          })
+        },
+        onSuccess: async (res) => {
+          const handle = res;
+        },
+      });
+    
+    function handleAdd(event) {
+        event.preventDefault();
+        
+        console.log(event.target.elements);
+        const handle = event.target.elements[0].value;
+        if(!handle) return;
+        addMutation.mutate(handle);
+    }
+
+    // mutation for removing user
+    const removeMutation = useMutation({
+        mutationFn: (id, t) => {
+          return fetch('/api/pages', {
+            method: 'DELETE',
+            body: JSON.stringify({
+                donor: t,
+                ID: id,
+            }),
+          })
+        },
+        onSuccess: async (res) => {
+          const handle = res;
+        },
+      });
+    
+    function handleRemove(event) {
+        event.preventDefault();
+        
+        console.log(event.target.elements);
+        const handle = event.target.elements[0].value;
+        if(!handle) return;
+        removeMutation.mutate(handle);
+    }
+
+    // mutation for updating user
+    const updateMutation = useMutation({
+        mutationFn: (id, fname, lname, bloodType, email, bd, t) => {
+          return fetch('/api/pages', {
+            method: 'PUT',
+            body: JSON.stringify({
+                donor: t,
+                ID: id,
+                Fname: fname,
+                Lname: lname,
+                BloodType: bloodType,
+                Email: email,
+                BD: bd, 
+            }),
+          })
+        },
+        onSuccess: async (res) => {
+          const handle = res;
+        },
+      });
+    function handleUpdate(event) {
+        event.preventDefault();
+        
+        console.log(event.target.elements);
+        const handle = event.target.elements[0].value;
+        if(!handle) return;
+        updateMutation.mutate(handle);
+    }
 
 return (
     <>
@@ -33,7 +124,41 @@ return (
             add &&
             <div>
                 <h1>add</h1>                   
-                <button>submit</button>
+                {addMutation.isLoading && <p>loading...</p>}
+                {! addMutation.isLoading && <div>
+                    <form onSubmit={handleAdd}>
+                    <div>
+                        <label htmlFor="id">ID</label>
+                        <input type="text" placeholder="1234567890" required/>
+
+                        <label htmlFor="fname">First Name</label>
+                        <input type="text" placeholder="ali" required/>
+
+                        <label htmlFor="lname">Last Name</label>
+                        <input type="text" placeholder="alzhrani" required/>
+
+                        <label htmlFor="bloodType">Blood Type</label>
+                        <input type="text" placeholder="O+" required/>
+
+                        <label htmlFor="bd">Birth Day</label>
+                        <input type="text" placeholder="10/11/1999" required/>
+
+                        <label htmlFor="email">Email</label>
+                        <input type="text" placeholder="alo@alo.alo" required/>
+
+                        <label htmlFor="username">Username</label>
+                        <input type="text" placeholder="alialzhrani" required/>
+
+                        <div className="radio">
+                            <label><input type="radio" name="donor" value="true" />Donor</label>
+                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit">Add User</button>
+                    </div>
+                    </form>
+                </div> }
             </div>
             }
         </div>
@@ -41,8 +166,23 @@ return (
             {
             remove &&
             <div>
-                <h1>remove</h1>                   
-                <button>submit</button>
+                <h1>remove</h1>
+                {removeMutation.isLoading && <p>loading...</p>}
+                {! removeMutation.isLoading && <div>
+                    <form onSubmit={handleRemove}>
+                    <div>
+                        <label htmlFor="id">ID</label>
+                        <input type="text" placeholder="1234567890" required/>
+                        <div className="radio">
+                            <label><input type="radio" name="donor" value="true" />Donor</label>
+                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit">Remove User</button>
+                    </div>
+                    </form>
+                </div> }
             </div>
             }
         </div>
@@ -50,8 +190,42 @@ return (
             {
             update &&
             <div>
-                <h1>update</h1>                   
-                <button>submit</button>
+                <h1>update</h1>
+                {updateMutation.isLoading && <p>loading...</p>}
+                {! updateMutation.isLoading && <div>
+                    <form onSubmit={handleUpdate}>
+                    <div>
+                        <label htmlFor="id">ID</label>
+                        <input type="text" placeholder="1234567890" required/>
+
+                        <label htmlFor="fname">First Name</label>
+                        <input type="text" placeholder="ali" required/>
+
+                        <label htmlFor="lname">Last Name</label>
+                        <input type="text" placeholder="alzhrani" required/>
+
+                        <label htmlFor="bloodType">Blood Type</label>
+                        <input type="text" placeholder="O+" required/>
+
+                        <label htmlFor="bd">Birth Day</label>
+                        <input type="text" placeholder="10/11/1999" required/>
+
+                        <label htmlFor="email">Email</label>
+                        <input type="text" placeholder="alo@alo.alo" required/>
+
+                        <label htmlFor="username">Username</label>
+                        <input type="text" placeholder="alialzhrani" required/>
+
+                        <div className="radio">
+                            <label><input type="radio" name="donor" value="true" />Donor</label>
+                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit">Update User</button>
+                    </div>
+                    </form>
+                </div> }
             </div>
             }
         </div>
@@ -59,8 +233,23 @@ return (
             {
             search &&
             <div>
-                <h1>search</h1>                   
-                <button>submit</button>
+                <h1>search</h1>
+                {removeMutation.isLoading && <p>loading...</p>}
+                {! removeMutation.isLoading && <div>
+                    <form onSubmit={handleRemove}>
+                    <div>
+                        <label htmlFor="id">ID</label>
+                        <input type="text" placeholder="1234567890" required/>
+                        <div className="radio">
+                            <label><input type="radio" name="donor" value="true" />Donor</label>
+                            <label><input type="radio" name="recipient" value="false"  />Recipient</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit">Remove User</button>
+                    </div>
+                    </form>
+                </div> }
             </div>
             }
         </div>
@@ -68,8 +257,9 @@ return (
             {
             bloodReq &&
             <div>
-                <h1>blood req</h1>                   
-                <button>submit</button>
+                <h1>blood req</h1>
+                <BloodRequests />
+
             </div>
             }
         </div>
@@ -78,7 +268,9 @@ return (
             bloodCollection &&
             <div>
                 <h1>blood collection</h1>                   
-                <button>submit</button>
+                <button onClick={handleClick}> 
+                    {buttonText} 
+                </button>
             </div>
             }
         </div>
