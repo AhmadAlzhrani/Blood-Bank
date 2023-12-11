@@ -2,7 +2,8 @@ import postgres from 'postgres';
 
 async function createPageHandler(req, res) {
 
-  const rbody = req.body;
+  const rbody = JSON.parse(req.body);
+  console.log('parsed: ',rbody);
   console.log('body:',rbody);
 
   const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });

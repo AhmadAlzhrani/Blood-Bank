@@ -10,7 +10,9 @@ export default function Home() {
       console.log('handle1111: ',handle);
       return fetch('/api/pages', {
         method: 'POST',
-        body: JSON({handle}),
+        body: JSON.stringify({
+          handle: handle,
+        }),
       })
     },
     onSuccess: async (res) => {
