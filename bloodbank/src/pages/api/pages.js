@@ -3,8 +3,6 @@ import postgres from 'postgres';
 async function createPageHandler(req, res) {
 
   const rbody = JSON.parse(req.body);
-  console.log('parsed: ',rbody);
-  console.log('body:',rbody);
 
   const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
   
@@ -18,7 +16,6 @@ async function createPageHandler(req, res) {
   WHERE handle=${rbody.handle};
   `;*/
 
-  console.log(response);
   sql.end();
 
   return res.status(200).json(rbody.handle)
