@@ -26,17 +26,18 @@ export default function admin() {
 
     // mutation for adding user
     const addMutation = useMutation({
-        mutationFn: (id, fname, lname, bloodType, email, bd, t) => {
-          return fetch('/api/pages', {
+        mutationFn: (event) => {
+          return fetch('/api/manage', {
             method: 'POST',
             body: JSON.stringify({
-                donor: t,
-                ID: id,
-                Fname: fname,
-                Lname: lname,
-                BloodType: bloodType,
-                Email: email,
-                BD: bd, 
+                id: event.target.elements[0].value,
+                fname: event.target.elements[1].value,
+                lname: event.target.elements[2].value,
+                blood: event.target.elements[3].value,
+                birth: event.target.elements[4].value,
+                email: event.target.elements[5].value,
+                user: event.target.elements[6].value,
+                donor: event.target.elements[7].value,
             }),
           })
         },
@@ -49,9 +50,9 @@ export default function admin() {
         event.preventDefault();
         
         console.log(event.target.elements);
-        const handle = event.target.elements[0].value;
-        if(!handle) return;
-        addMutation.mutate(handle);
+        const id = event.target.elements[0].value;
+        if(!id ) return;
+        addMutation.mutate(event);
     }
 
     // mutation for removing user
