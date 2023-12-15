@@ -5,7 +5,6 @@ export default function admin() {
 
     const [update, setUpdate] = useState(false);
     const [search, setSearch] = useState(false);
-    const [history, setHistory] = useState([]);
 
 
     const showHideUpdate = () => setUpdate(!update);
@@ -38,9 +37,9 @@ export default function admin() {
         if(!fname) return;
         updateMutation.mutate(event);
     }
-
+    const [info, setInfo] = useState({});
     // mutation for searching user
-    const addMutation = useMutation({
+    const searchMutation = useMutation({
         mutationFn: (event) => {
           return fetch('/api/searches', {
             method: 'POST',
@@ -50,7 +49,8 @@ export default function admin() {
           })
         },
         onSuccess: async (res) => {
-          const handle = res;
+          //setInfo(res.body);
+          res.json().then(data => console.log(data));
         },
       });
     
@@ -60,7 +60,7 @@ export default function admin() {
         console.log(event.target.elements);
         const id = event.target.elements[0].value;
         if(!id ) return;
-        addMutation.mutate(event);
+        searchMutation.mutate(event);
     }
 
 return (

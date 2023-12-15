@@ -7,18 +7,18 @@ async function searching(req, res) {
 
     const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
     
-    const table = rbody.donor ? 'Donor' : 'Recipient';
-    
     const response = await sql`
-    FROM Person
-    WHERE person_ID = ${rbody.id};
-    SELECT * FROM Donor
+    select * FROM person
+    WHERE person_ID = ${rbody.id};`
+
+    /*SELECT * FROM donor
     WHERE donor_ID = ${rbody.id};
-    `;
+    `;*/
 
     sql.end();
+    console.log(response[0]);
 
-    return res.status(200).json(rbody.id)
+    return res.status(200).json(response[0])
 }
 
 

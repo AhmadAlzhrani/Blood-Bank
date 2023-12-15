@@ -7,13 +7,13 @@ async function createInfo(req, res) {
 
     const sql = postgres(process.env.DATABASE_URL, { ssl: 'require' });
     
-    const table = rbody.donor ? 'Donor' : 'Recipient';
+    const table = rbody.donor ? 'INSERT INTO Donor (donor_ID, weight, major_disease) VALUES (${rbody.id}, 80, false);' : 'INSERT INTO Recipient (recipient_ID) VALUES (${rbody.id});';
     
     const response = await sql`
     INSERT INTO Person (person_ID, first_name, last_name, blood_type, email, b_date, username) VALUES 
     (${rbody.id}, ${rbody.fname}, ${rbody.lname}, ${rbody.blood}, ${rbody.email}, ${rbody.birth}, ${rbody.user});
     INSERT INTO Customer (customer_ID) VALUES (${rbody.id});
-    INSERT INTO ${table} (donor_ID, major_disease) VALUES (${rbody.id}, false);
+    ${table}
     `;
 
     sql.end();
