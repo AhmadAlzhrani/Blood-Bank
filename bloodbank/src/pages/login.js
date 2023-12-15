@@ -37,7 +37,10 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       try {
         //await auth.signIn(values.email, values.password);
-        router.push('/');
+        if(formik.values.email === 'admin@amaka.com')
+          router.push('/admin');
+        else
+          router.push('/user');
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -56,7 +59,7 @@ const Page = () => {
   const handleSkip = useCallback(
     () => {
       //auth.skip();
-      router.push('/');
+      router.push('/guest');
     }//,[auth, router]
   );
 
@@ -156,31 +159,25 @@ const Page = () => {
                   sx={{ mt: 3 }}
                   onClick={handleSkip}
                 >
-                  Skip authentication
+                  Proceed as Guest
                 </Button>
                 <Alert
                   color="primary"
                   severity="info"
-                  sx={{ mt: 3 }}
                 >
                   <div>
                     You can use <b>admin@amaka.com</b> and password <b>admin</b>
                   </div>
                 </Alert>
-              </form>
-            )}
-            {method === 'phoneNumber' && (
-              <div>
-                <Typography
-                  sx={{ mb: 1 }}
-                  variant="h6"
+                <Alert
+                  color="primary"
+                  severity="info"
                 >
-                  Not available in the demo
-                </Typography>
-                <Typography color="text.secondary">
-                  To prevent unnecessary costs we disabled this feature in the demo.
-                </Typography>
-              </div>
+                  <div>
+                    You can use <b>user@amaka.com</b> and password <b>user</b>
+                  </div>
+                </Alert>
+              </form>
             )}
           </div>
         </Box>

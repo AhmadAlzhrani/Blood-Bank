@@ -82,17 +82,17 @@ export default function admin() {
 
     // mutation for updating user
     const updateMutation = useMutation({
-        mutationFn: (id, fname, lname, bloodType, email, bd, t) => {
-          return fetch('/api/pages', {
+        mutationFn: (event) => {
+          return fetch('/api/manage', {
             method: 'PUT',
             body: JSON.stringify({
-                donor: t,
-                ID: id,
-                Fname: fname,
-                Lname: lname,
-                BloodType: bloodType,
-                Email: email,
-                BD: bd, 
+                id: event.target.elements[0].value,
+                fname: event.target.elements[1].value,
+                lname: event.target.elements[2].value,
+                blood: event.target.elements[3].value,
+                birth: event.target.elements[4].value,
+                email: event.target.elements[5].value,
+                user: event.target.elements[6].value,
             }),
           })
         },
@@ -103,10 +103,9 @@ export default function admin() {
     function handleUpdate(event) {
         event.preventDefault();
         
-        console.log(event.target.elements);
-        const handle = event.target.elements[0].value;
-        if(!handle) return;
-        updateMutation.mutate(handle);
+        const fname = event.target.elements[1].value;
+        if(!fname) return;
+        updateMutation.mutate(event);
     }
 
     // mutation for searching user
@@ -147,7 +146,7 @@ return (
             {
             add &&
             <div className="">
-                <h1>add</h1>                   
+                <h1>add</h1>                  
                 {addMutation.isLoading && <p>loading...</p>}
                 {! addMutation.isLoading && <div>
                     <form onSubmit={handleAdd}>
@@ -251,10 +250,6 @@ return (
                         <label htmlFor="username">Username</label>
                         <input type="text" placeholder="alialzhrani" required/>
                     </div>
-                        <div className="radio px-4 py-2 space-x-8">
-                            <label><input type="radio" name=" donor" value="true" />Donor</label>
-                            <label><input type="radio" name=" recipient" value="false"  />Recipient</label>
-                        </div>
                     <div className=" px-4 py-2 space-x-8 ">
                         <button className="primary-button" type="submit">Add User</button>
                     </div>
@@ -274,10 +269,6 @@ return (
                     <div className=" px-4 py-2 space-x-8 ">
                         <label htmlFor="id">ID</label>
                         <input type="text" placeholder="1234567890" required/>
-                    </div>
-                    <div className="radio px-4 py-2 space-x-8">
-                        <label><input type="radio" name=" donor" value="true" />Donor</label>
-                        <label><input type="radio" name=" recipient" value="false"  />Recipient</label>
                     </div>
                     <div>
                         <button className="primary-button" type="submit">Search User</button>
