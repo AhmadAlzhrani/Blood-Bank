@@ -10,6 +10,7 @@ export default function admin() {
     const [search, setSearch] = useState(false);
     const [bloodReq, setBloodReq] = useState(false);
     const [bloodCollection, setBloodCollection] = useState(false);
+    const [information, setInformation] = useState(false);
 
     const showHideAdd = () => setAdd(!add);
     const showHideRemove = () => setRemove(!remove);
@@ -55,6 +56,7 @@ export default function admin() {
         addMutation.mutate(event);
     }
 
+    const [info, setInfo] = useState({});
     // mutation for removing user
     const removeMutation = useMutation({
         mutationFn: (id, t) => {
@@ -110,25 +112,27 @@ export default function admin() {
 
     // mutation for searching user
     const searchMutation = useMutation({
-        mutationFn: (id) => {
-          return fetch('/api/pages', {
-            method: 'GET',
+        mutationFn: (event) => {
+          return fetch('/api/searches', {
+            method: 'POST',
             body: JSON.stringify({
-                ID: id,
+                id: event.target.elements[0].value,
             }),
           })
         },
         onSuccess: async (res) => {
-          const handle = res;
+          res.json().then(data => setInfo(data));
+          setInformation(true)
         },
       });
+    
     function handleSearch(event) {
         event.preventDefault();
         
         console.log(event.target.elements);
-        const handle = event.target.elements[0].value;
-        if(!handle) return;
-        searchMutation.mutate(handle);
+        const id = event.target.elements[0].value;
+        if(!id ) return;
+        searchMutation.mutate(event);
     }
 
 return (
@@ -272,6 +276,21 @@ return (
                     </div>
                     <div>
                         <button className="primary-button" type="submit">Search User</button>
+                    </div>
+                    <div>
+                        {information && <div>
+                            <p>ID - {info.person_id}</p>
+                            <p>First name - {info.first_name}</p>
+                            <p>Last name - {info.last_name}</p>
+                            <p>Blood type - {info.blood_type}</p>
+                            <p>Email - {info.email}</p>
+                            <p>Birthday - {info.b_date}</p>
+                            <p>Address - {info.address}</p>
+                            <p>Username - {info.username}</p>
+                            <p>Weight - {info.weight}</p>
+                            <p>Major disease - {info.major_disease= false? "yes":"none"}</p>
+                            <p>Donor - {info.donor_id}</p>
+                        </div>}
                     </div>
                     </form>
                 </div> }

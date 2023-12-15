@@ -11,14 +11,16 @@ async function searching(req, res) {
     select * FROM person
     WHERE person_ID = ${rbody.id};`
 
-    /*SELECT * FROM donor
+    const response2 = await sql`
+    SELECT * FROM donor
     WHERE donor_ID = ${rbody.id};
-    `;*/
+    `;
 
     sql.end();
-    console.log(response[0]);
+    const mergedJSON = Object.assign({}, response[0], response2[0]);
+    console.log(mergedJSON);
 
-    return res.status(200).json(response[0])
+    return res.status(200).json(mergedJSON)
 }
 
 

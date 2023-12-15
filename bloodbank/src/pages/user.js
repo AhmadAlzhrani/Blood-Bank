@@ -5,6 +5,7 @@ export default function admin() {
 
     const [update, setUpdate] = useState(false);
     const [search, setSearch] = useState(false);
+    const [information, setInformation] = useState(false);
 
 
     const showHideUpdate = () => setUpdate(!update);
@@ -37,6 +38,7 @@ export default function admin() {
         if(!fname) return;
         updateMutation.mutate(event);
     }
+
     const [info, setInfo] = useState({});
     // mutation for searching user
     const searchMutation = useMutation({
@@ -49,8 +51,8 @@ export default function admin() {
           })
         },
         onSuccess: async (res) => {
-          //setInfo(res.body);
-          res.json().then(data => console.log(data));
+          res.json().then(data => setInfo(data));
+          setInformation(true)
         },
       });
     
@@ -127,7 +129,22 @@ return (
                         <input type="text" placeholder="1234567890" required/>
                     </div>
                     <div>
-                        <button className="primary-button" type="submit">Search User</button>
+                        <button className="primary-button" type="submit" >Search User</button>
+                    </div>
+                    <div>
+                        {information && <div>
+                            <p>ID - {info.person_id}</p>
+                            <p>First name - {info.first_name}</p>
+                            <p>Last name - {info.last_name}</p>
+                            <p>Blood type - {info.blood_type}</p>
+                            <p>Email - {info.email}</p>
+                            <p>Birthday - {info.b_date}</p>
+                            <p>Address - {info.address}</p>
+                            <p>Username - {info.username}</p>
+                            <p>Weight - {info.weight}</p>
+                            <p>Major disease - {info.major_disease= false? "yes":"none"}</p>
+                            <p>Donor - {info.donor_id}</p>
+                        </div>}
                     </div>
                     </form>
                 </div> }                 
