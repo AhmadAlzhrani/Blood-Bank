@@ -64,7 +64,7 @@ const Page = () => {
   );
 
   return (
-    <>
+    <div className=' h-screen'>
       <Head>
         <title>
           Login 
@@ -76,7 +76,8 @@ const Page = () => {
           flex: '1 1 auto',
           alignItems: 'center',
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          height: '100%',
         }}
       >
         <Box
@@ -92,7 +93,7 @@ const Page = () => {
               spacing={1}
               sx={{ mb: 3 }}
             >
-              <Typography variant="h4">
+              <Typography variant="h4" className=' text-black'>
                 Login
               </Typography>
             </Stack>
@@ -182,7 +183,7 @@ const Page = () => {
           </div>
         </Box>
       </Box>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "react-query"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTint } from '@fortawesome/free-solid-svg-icons';
 
 export default function admin() {
 
@@ -66,91 +68,97 @@ export default function admin() {
     }
 
 return (
-    <>
-        <div className="">
-            <h1 className=" text-center">User</h1>
+    <div className="flex columns-2 w-screen h-screen bg-gradient-to-l from-blue-950 from-10%">
+        <div className="flex flex-col bg-transparent shadow-lg rounded-lg ml-2 mt-2 mb-2 w-[30vh]">
+
+            <div className="mx-auto hover:text-red-600 border-2 px-4 py-2 rounded-lg mt-20 mb-8">
+                <FontAwesomeIcon icon={faTint} size="2x" />
+            </div>
             <button className="primary-button" onClick={showHideUpdate}>update</button>
             <button className="primary-button" onClick={showHideSearch}>search history</button>
+            <h1 className=" text-center mt-20">User</h1>
         </div>
-        <div>
-            {
-            update &&
+        <div className="mx-auto my-auto">
             <div>
-                <h1>update</h1> 
-                {updateMutation.isLoading && <p>loading...</p>}
-                {! updateMutation.isLoading && <div>
-                    <form onSubmit={handleUpdate}>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="id">ID</label>
-                        <input type="text" placeholder="1234567890" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="fname">First Name</label>
-                        <input type="text" placeholder="ali" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="lname">Last Name</label>
-                        <input type="text" placeholder="alzhrani" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="bloodType">Blood Type</label>
-                        <input type="text" placeholder="O+" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="bd">Birth Day</label>
-                        <input type="text" placeholder="10/11/1999" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="email">Email</label>
-                        <input type="text" placeholder="alo@alo.alo" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="username">Username</label>
-                        <input type="text" placeholder="alialzhrani" required/>
-                    </div>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <button className="primary-button" type="submit">Add User</button>
-                    </div>
-                    </form>
-                </div> }
+                {
+                update &&
+                <div className="boxx">
+                    <h1 className=" text-center mb-8 font-bold">update</h1> 
+                    {updateMutation.isLoading && <p>loading...</p>}
+                    {! updateMutation.isLoading && <div>
+                        <form onSubmit={handleUpdate}>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="id">ID</label>
+                            <input type="text" placeholder="1234567890" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="fname">First Name</label>
+                            <input type="text" placeholder="ali" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="lname">Last Name</label>
+                            <input type="text" placeholder="alzhrani" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="bloodType">Blood Type</label>
+                            <input type="text" placeholder="O+" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="bd">Birth Day</label>
+                            <input type="text" placeholder="10/11/1999" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="email">Email</label>
+                            <input type="text" placeholder="alo@alo.alo" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="username">Username</label>
+                            <input type="text" placeholder="alialzhrani" required/>
+                        </div>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <button className="primary-button" type="submit">Add User</button>
+                        </div>
+                        </form>
+                    </div> }
+                </div>
+                }
             </div>
-            }
-        </div>
-        <div>
-            {
-            search &&
             <div>
-                <h1>search</h1>
-                {searchMutation.isLoading && <p>loading...</p>}
-                {! searchMutation.isLoading && <div>
-                    <form onSubmit={handleSearch}>
-                    <div className=" px-4 py-2 space-x-8 ">
-                        <label htmlFor="id">ID</label>
-                        <input type="text" placeholder="1234567890" required/>
-                    </div>
-                    <div>
-                        <button className="primary-button" type="submit" >Search User</button>
-                    </div>
-                    <div>
-                        {information && <div>
-                            <p>ID - {info.person_id}</p>
-                            <p>First name - {info.first_name}</p>
-                            <p>Last name - {info.last_name}</p>
-                            <p>Blood type - {info.blood_type}</p>
-                            <p>Email - {info.email}</p>
-                            <p>Birthday - {info.b_date}</p>
-                            <p>Address - {info.address}</p>
-                            <p>Username - {info.username}</p>
-                            <p>Weight - {info.weight}</p>
-                            <p>Major disease - {info.major_disease= false? "yes":"none"}</p>
-                            <p>Donor - {info.donor_id}</p>
-                        </div>}
-                    </div>
-                    </form>
-                </div> }                 
+                {
+                search &&
+                <div className="boxx">
+                    <h1 className=" text-center mb-8 font-bold">search</h1>
+                    {searchMutation.isLoading && <p>loading...</p>}
+                    {! searchMutation.isLoading && <div>
+                        <form onSubmit={handleSearch}>
+                        <div className=" px-4 py-2 space-x-8 ">
+                            <label htmlFor="id">ID</label>
+                            <input type="text" placeholder="1234567890" required/>
+                        </div>
+                        <div>
+                            <button className="primary-button" type="submit" >Search User</button>
+                        </div>
+                        <div>
+                            {information && <div>
+                                <p>ID - {info.person_id}</p>
+                                <p>First name - {info.first_name}</p>
+                                <p>Last name - {info.last_name}</p>
+                                <p>Blood type - {info.blood_type}</p>
+                                <p>Email - {info.email}</p>
+                                <p>Birthday - {info.b_date}</p>
+                                <p>Address - {info.address}</p>
+                                <p>Username - {info.username}</p>
+                                <p>Weight - {info.weight}</p>
+                                <p>Major disease - {info.major_disease= false? "yes":"none"}</p>
+                                <p>Donor - {info.donor_id}</p>
+                            </div>}
+                        </div>
+                        </form>
+                    </div> }                 
+                </div>
+                }
             </div>
-            }
         </div>
-    </>
+    </div>
 );
 }
