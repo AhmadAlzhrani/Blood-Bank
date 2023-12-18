@@ -27,7 +27,7 @@ body {
 }
 
 .primary-button{
-  @apply bg-blue-900 text-white font-semibold px-8 py-2 rounded hover:bg-blue-800 disabled:bg-gray-400 m-2;
+  @apply bg-blue-900 text-white font-semibold px-8 py-2 rounded hover:bg-blue-800 disabled:bg-gray-400 m-2 mx-8 my-4;
 }
 
 .radio-button{
@@ -36,4 +36,8 @@ body {
 
 .label{
   @apply ms-2 text-sm font-medium text-gray-900 dark:text-gray-300;
+}
+
+.boxx{
+  @apply border-2 rounded-lg px-16 py-8 bg-opacity-10 bg-blue-900 shadow-2xl;
 }
